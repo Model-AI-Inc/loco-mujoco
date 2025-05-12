@@ -18,9 +18,13 @@ from .toddlerbot import ToddlerBot
 from .toddlerbot_mjx import MjxToddlerBot
 from .fourier_gr1t2 import FourierGR1T2
 from .fourier_gr1t2_mjx import MjxFourierGR1T2
+from .modelone import ModelOne
+from .modelone_mjx import MjxModelOne
 from .skeletons import (SkeletonTorque, MjxSkeletonTorque, HumanoidTorque, SkeletonMuscle, MjxSkeletonMuscle,
                         HumanoidMuscle)
 
+ModelOne.register()
+MjxModelOne.register()
 
 # register environments in mushroom
 Atlas.register()
