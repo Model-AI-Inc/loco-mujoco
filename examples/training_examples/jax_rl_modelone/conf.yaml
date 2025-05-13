@@ -27,42 +27,38 @@ experiment:
     #env_name: MjxBoosterT1
     env_name: MjxModelOne
     horizon: 1000
-    #disable_arms: true
+    disable_arms: true
     terminal_state_type: HeightBasedTerminalStateHandler
     goal_type: GoalRandomRootVelocity
     goal_params:
       visualize_goal: true
     headless: true
-    init_state_type: CustomInitialStateHandler
     reward_type: TargetXVelocityReward
     #reward_type: TargetVelocityGoalReward
     reward_params:
       target_velocity: 1.5
-      #tracking_w_exp_xy: 4.0
-      #tracking_w_exp_yaw: 4.0
-      #tracking_w_sum_xy: 2.0
-      #tracking_w_sum_yaw: 1.0
-      #air_time_coeff: 0.1
-      #joint_acc_coeff: 2.0e-05
-      #air_time_max: 0.5
-      #joint_torque_coeff: 2.0e-07
-      #joint_position_limit_coeff: 2.0
-      #action_rate_coeff: 0.1
-      #symmetry_air_coeff: 0.005
-      #energy_coeff: 5.0e-05
+      tracking_w_exp_xy: 0.1
+      tracking_w_exp_yaw: 0.1
+      joint_position_limit_coeff: 0.1
+      energy_coeff: 5.0e-05
+      air_time_max: 0.1
+      joint_torque_coeff: 2.0e-07
+      symmetry_air_coeff: 0.01
+      action_rate_coeff: 0.01
   hidden_layers: [512, 256]
   lr: 1e-4
-  num_envs: 2048
-  num_steps: 50
-  total_timesteps: 5e5
-  update_epochs: 4
+  num_envs: 1024
+  num_steps: 500
+  #total_timesteps: 50000000
+  total_timesteps: 1000000
+  update_epochs: 5
   num_minibatches: 32
   gamma: 0.99
   gae_lambda: 0.95
   clip_eps: 0.2
-  init_std: 0.8
+  init_std: 0.5
   learnable_std: true
-  ent_coef: 0.0
+  ent_coef: 0.01
   vf_coef: 0.5
   max_grad_norm: 0.5
   activation: tanh
@@ -72,11 +68,14 @@ experiment:
   debug: true
   n_seeds: 1  # while automatically take seeds from 1 to n_seeds
   vmap_across_seeds: true
+  num_updates: 100
   validation:
     active: false
     num_steps: 100
     num_envs: 100
     num: 1 # set to 0 to disable validation
   torque_control:
-    control_type: DefaultControl
+    control_type: PDControl
     control_params:
+      kp: 4.0
+      kd: 0.5

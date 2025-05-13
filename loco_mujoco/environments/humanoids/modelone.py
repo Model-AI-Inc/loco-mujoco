@@ -203,7 +203,7 @@ class ModelOne(BaseRobotHumanoid):
         super().__init__(spec=spec, actuation_spec=actuation_spec, observation_spec=observation_spec, **kwargs)
 
     def _get_xml_modifications(self) -> Tuple[List[str], List[str], List[str]]:
-        joints_to_remove = []
+        joints_to_remove = ["left_ankle_pitch","right_ankle_pitch"]
         motors_to_remove = []
         equ_constr_to_remove = []
 
@@ -271,10 +271,10 @@ class ModelOne(BaseRobotHumanoid):
     def _get_action_specification(spec: MjSpec) -> List[str]:
         return [
                 #"left_toe", 
-                "left_ankle_pitch", 
+                #"left_ankle_pitch", 
+                #"right_ankle_pitch", 
                 "left_knee_pitch", "left_hip_yaw", "left_hip_roll", "left_hip_pitch",
                 "right_hip_pitch", "right_hip_roll", "right_hip_yaw", "right_knee_pitch", 
-                "right_ankle_pitch", 
                 #"right_toe",
                 #"torso",
                 "left_shoulder_roll", "left_shoulder_yaw", "left_elbow_pitch",
@@ -284,21 +284,21 @@ class ModelOne(BaseRobotHumanoid):
 
     @staticmethod
     def _reorient_arms(spec: MjSpec) -> MjSpec:
-        left_shoulder_link = spec.find_body("shoulder") # Corresponds to old left_shoulder_pitch_link
-        if left_shoulder_link:
-            left_shoulder_link.quat = [1.0, 0.25, 0.1, 0.0]
+        # left_shoulder_link = spec.find_body("shoulder") # Corresponds to old left_shoulder_pitch_link
+        # if left_shoulder_link:
+        #     left_shoulder_link.quat = [1.0, 0.25, 0.1, 0.0]
 
-        right_elbow_link = spec.find_body("forearm_2") # Corresponds to old right_elbow_pitch_link
-        if right_elbow_link:
-            right_elbow_link.quat = [1.0, 0.0, 0.25, 0.0]
+        # right_elbow_link = spec.find_body("forearm_2") # Corresponds to old right_elbow_pitch_link
+        # if right_elbow_link:
+        #     right_elbow_link.quat = [1.0, 0.0, 0.25, 0.0]
 
-        right_shoulder_link = spec.find_body("shoulder_2") # Corresponds to old right_shoulder_pitch_link
-        if right_shoulder_link:
-            right_shoulder_link.quat = [1.0, -0.25, 0.1, 0.0]
+        # right_shoulder_link = spec.find_body("shoulder_2") # Corresponds to old right_shoulder_pitch_link
+        # if right_shoulder_link:
+        #     right_shoulder_link.quat = [1.0, -0.25, 0.1, 0.0]
 
-        left_elbow_link = spec.find_body("forearm") # Corresponds to old left_elbow_pitch_link
-        if left_elbow_link:
-            left_elbow_link.quat = [1.0, 0.0, 0.25, 0.0]
+        # left_elbow_link = spec.find_body("forearm") # Corresponds to old left_elbow_pitch_link
+        # if left_elbow_link:
+        #     left_elbow_link.quat = [1.0, 0.0, 0.25, 0.0]
         return spec
 
     @classmethod
@@ -311,4 +311,4 @@ class ModelOne(BaseRobotHumanoid):
 
     @info_property
     def root_height_healthy_range(self) -> Tuple[float, float]:
-        return (0.03, 1.0)
+        return (0.0, 0.01)

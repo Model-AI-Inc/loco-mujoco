@@ -17,9 +17,7 @@ class MjxModelOne(ModelOne):
         super().__init__(timestep=timestep, n_substeps=n_substeps, model_option_conf=model_option_conf, **kwargs)
 
     def _modify_spec_for_mjx(self, spec: MjSpec):
-        foot_geoms = ["right_foot_1_col", "right_foot_2_col", "right_foot_3_col", "right_foot_4_col",
-              "left_foot_1_col", "left_foot_2_col", "left_foot_3_col", "left_foot_4_col"]
-
+        foot_geoms = ["right_foot_1_col","left_foot_1_col", "right_toe_1_col", "left_toe_1_col",]
 
         # --- Make all geoms have contype and conaffinity of 0 ---
         for g in spec.geoms:
